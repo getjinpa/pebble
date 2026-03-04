@@ -25,8 +25,12 @@
     { "title": "Paper Moon",         "medium": "Tibetan paper art",  "image": "/images/work-6.jpg" }
   ],
   "social": {
-    "instagram": "",
-    "facebook": "",
+    "instagram": "https://instagram.com",
+    "facebook": "https://facebook.com",
+    "x": "https://x.com",
+    "youtube": "https://youtube.com",
+    "tiktok": "https://tiktok.com",
+    "linkedin": "https://linkedin.com",
     "whatsapp": "",
     "email": ""
   },
