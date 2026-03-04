@@ -1,0 +1,16 @@
+{
+  "name": "pebble",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Pebble — a minimal one-page artist site template built with Jinpa and Astro",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "astro": "^5.17.1"
+  }
+}

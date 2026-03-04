@@ -1,0 +1,491 @@
+---
+import Base from '../layouts/Base.astro';
+import { siteConfig } from '../utils/config';
+import { withBase } from '../utils/paths';
+
+const artist = siteConfig.artist || {};
+const works: Array<{ title: string; medium: string; image: string }> = siteConfig.works || [];
+const social = siteConfig.social || {};
+const contact = siteConfig.contact || {};
+
+// Work card placeholder gradients — warm earthy tones
+const placeholderColors = [
+  ['#d4a868', '#a0733c'],
+  ['#8faab8', '#4a6e82'],
+  ['#b8a068', '#7a6a38'],
+  ['#c4a07a', '#8a6040'],
+  ['#a0b88a', '#6a8040'],
+  ['#b88a8a', '#8a5050'],
+];
+---
+
+<Base
+  title={artist.name || siteConfig.site.title}
+  description={siteConfig.site.description}
+>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <p class="eyebrow">{artist.location}</p>
+      <h1 class="hero-name">{artist.name}</h1>
+      <p class="hero-title">{artist.title}</p>
+      <div class="hero-rule" aria-hidden="true"></div>
+      <p class="hero-tagline">{artist.tagline}</p>
+      <a href="#works" class="hero-scroll" aria-label="Scroll to works">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ABOUT
+  ══════════════════════════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="about-inner container">
+      <div class="about-portrait">
+        {artist.photo ? (
+          <img
+            src={withBase(artist.photo)}
+            alt={`Portrait of ${artist.name}`}
+            width="480"
+            height="600"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          />
+        ) : (
+          <div class="portrait-placeholder" aria-hidden="true"></div>
+        )}
+      </div>
+      <div class="about-text">
+        <span class="eyebrow">About</span>
+        <h2 class="about-heading">{artist.name}</h2>
+        <p class="about-title-line">{artist.title}</p>
+        <p class="about-bio">{artist.bio}</p>
+        {social.email && (
+          <a href={`mailto:${social.email}`} class="about-link">
+            Send an email
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        )}
+        {!social.email && social.whatsapp && (
+          <a href={social.whatsapp} class="about-link" target="_blank" rel="noopener noreferrer">
+            Get in touch
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       WORKS
+  ══════════════════════════════════════════════════════════ -->
+  <section class="works" id="works">
+    <div class="container">
+      <div class="works-header">
+        <span class="eyebrow">Selected Works</span>
+        <h2 class="works-heading">The Range</h2>
+      </div>
+
+      <div class="works-grid">
+        {works.map((work, i) => {
+          const [c1, c2] = placeholderColors[i % placeholderColors.length];
+          return (
+            <article class="work-card">
+              <div
+                class="work-image"
+                style={`background: linear-gradient(160deg, ${c1} 0%, ${c2} 100%);`}
+              >
+                {work.image && (
+                  <img
+                    src={withBase(work.image)}
+                    alt={work.title}
+                    width="600"
+                    height="750"
+                    loading="lazy"
+                    onerror="this.style.display='none'"
+                  />
+                )}
+                <div class="work-hover-overlay">
+                  <span class="work-hover-medium">{work.medium}</span>
+                </div>
+              </div>
+              <div class="work-meta">
+                <h3 class="work-title">{work.title}</h3>
+                <p class="work-medium">{work.medium}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════════════════════ -->
+  <section class="contact" id="contact">
+    <div class="contact-inner container">
+      <span class="eyebrow">Contact</span>
+      <h2 class="contact-heading">Get in Touch</h2>
+      {contact.note && <p class="contact-note">{contact.note}</p>}
+
+      <div class="social-links">
+        {social.instagram && (
+          <a href={social.instagram} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>
+            <span>Instagram</span>
+          </a>
+        )}
+
+        {social.facebook && (
+          <a href={social.facebook} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+            <span>Facebook</span>
+          </a>
+        )}
+
+        {social.whatsapp && (
+          <a href={social.whatsapp} class="social-link" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            </svg>
+            <span>WhatsApp</span>
+          </a>
+        )}
+
+        {social.email && (
+          <a href={`mailto:${social.email}`} class="social-link" aria-label="Email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <span>Email</span>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ── Push content below fixed header ── */
+  main { padding-top: 4rem; }
+
+  /* ════════════════════════════════
+     HERO
+  ════════════════════════════════ */
+  .hero {
+    min-height: calc(100svh - 4rem);
+    display: flex;
+    align-items: center;
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    text-align: center;
+  }
+
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 9vw, 7rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    color: var(--ink);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2.5vw, 1.375rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-rule {
+    width: 3rem;
+    height: 1px;
+    background: var(--terracotta);
+    margin: 2rem auto;
+    opacity: 0.7;
+  }
+
+  .hero-tagline {
+    max-width: 480px;
+    margin: 0 auto;
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2vw, 1.375rem);
+    font-weight: 300;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  .hero-scroll {
+    display: inline-flex;
+    margin-top: 3.5rem;
+    color: var(--ink-muted);
+    animation: bobble 2s ease-in-out infinite;
+    transition: color var(--transition);
+  }
+
+  .hero-scroll:hover { color: var(--terracotta); }
+
+  @keyframes bobble {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(6px); }
+  }
+
+  /* ════════════════════════════════
+     ABOUT
+  ════════════════════════════════ */
+  .about {
+    background: var(--cream-dark);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-portrait {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 2px;
+    background: var(--cream);
+  }
+
+  .about-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .portrait-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #d4c4b4, #a89080);
+  }
+
+  .about-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .about-title-line {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-bio {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    max-width: 52ch;
+  }
+
+  .about-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--terracotta);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition);
+  }
+
+  .about-link:hover { border-bottom-color: var(--terracotta); }
+
+  /* ════════════════════════════════
+     WORKS
+  ════════════════════════════════ */
+  .works-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .works-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 400;
+    margin-top: 0.375rem;
+  }
+
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .work-card { cursor: default; }
+
+  .work-image {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 0.875rem;
+  }
+
+  .work-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .work-card:hover .work-image img { transform: scale(1.04); }
+
+  /* Hover overlay with medium label */
+  .work-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(34, 28, 25, 0.45);
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  .work-card:hover .work-hover-overlay { opacity: 1; }
+
+  .work-hover-medium {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .work-title {
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .work-medium {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.02em;
+  }
+
+  /* ════════════════════════════════
+     CONTACT
+  ════════════════════════════════ */
+  .contact {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .contact-inner {
+    text-align: center;
+  }
+
+  .contact .eyebrow { color: rgba(249,247,244,0.55); }
+
+  .contact-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin: 0.375rem 0 1rem;
+  }
+
+  .contact-note {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-style: italic;
+    color: rgba(249,247,244,0.6);
+    margin-bottom: 2.5rem;
+  }
+
+  .social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--cream);
+    border: 1px solid rgba(249,247,244,0.2);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background var(--transition), border-color var(--transition);
+  }
+
+  .social-link:hover {
+    background: rgba(249,247,244,0.1);
+    border-color: rgba(249,247,244,0.4);
+  }
+
+  /* ════════════════════════════════
+     RESPONSIVE
+  ════════════════════════════════ */
+  @media (max-width: 900px) {
+    .works-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 720px) {
+    .about-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .about-portrait {
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .works-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .hero { min-height: auto; padding: 4rem 0 3rem; }
+  }
+</style>

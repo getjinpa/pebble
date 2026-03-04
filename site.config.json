@@ -1,0 +1,41 @@
+{
+  "demo": true,
+  "demoMessage": "Sample template — Karma Yangchen is a fictional artist; all images are placeholders",
+  "site": {
+    "title": "Karma Yangchen",
+    "description": "Tibetan mixed media artist working in appliqué, thangka brocade, Cloisonné, pottery, and woodwork. Based in New York.",
+    "url": "https://username.github.io",
+    "basePath": "",
+    "language": "en"
+  },
+  "artist": {
+    "name": "Karma Yangchen",
+    "title": "Tibetan Mixed Media Artist",
+    "tagline": "Weaving the timeless essence of Tibetan heritage into the living world.",
+    "bio": "Karma Yangchen is a Tibetan mixed media artist specialising in appliqué, thangka brocade, Cloisonné, pottery, and woodwork. She has maintained studios in New York City and the Hudson Valley for over two decades, creating sacred objects and fine art for collectors and dharma centres worldwide.",
+    "photo": "/images/portrait.jpg",
+    "location": "New York, USA"
+  },
+  "works": [
+    { "title": "Blue Tara Appliqué", "medium": "Silk appliqué", "image": "/images/work-1.jpg" },
+    { "title": "Lotus Bowl",         "medium": "Tibetan pottery",    "image": "/images/work-2.jpg" },
+    { "title": "Dharmadhatu",        "medium": "Cloisonné & resin",  "image": "/images/work-3.jpg" },
+    { "title": "Offering Lamp",      "medium": "Carved woodwork",    "image": "/images/work-4.jpg" },
+    { "title": "Shrine Cloth",       "medium": "Thangka brocade",    "image": "/images/work-5.jpg" },
+    { "title": "Paper Moon",         "medium": "Tibetan paper art",  "image": "/images/work-6.jpg" }
+  ],
+  "social": {
+    "instagram": "",
+    "facebook": "",
+    "whatsapp": "",
+    "email": ""
+  },
+  "contact": {
+    "note": "Available for commissions and dharma centre installations."
+  },
+  "seo": {
+    "titleTemplate": "%s — Karma Yangchen",
+    "ogImage": ""
+  },
+  "jinpaKey": ""
+}

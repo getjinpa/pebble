@@ -1,0 +1,71 @@
+/* ============================================================
+   Pebble — Global Design System
+   Minimal, warm, gallery-focused. Cormorant Garamond + Inter.
+   ============================================================ */
+
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+  --cream:        #f9f7f4;
+  --cream-dark:   #f0ece6;
+  --ink:          #221c19;
+  --ink-mid:      #4a3e38;
+  --ink-muted:    #8a7a72;
+  --terracotta:   #c05c38;
+  --terracotta-dk:#9e4a2c;
+  --border:       rgba(34, 28, 25, 0.12);
+  --border-light: rgba(34, 28, 25, 0.07);
+  --white:        #ffffff;
+
+  --font-display: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  --transition:   0.25s ease;
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+/* ── Typography helpers ──────────────────────────────────── */
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ── Sections ────────────────────────────────────────────── */
+section { padding: 5rem 0; }
+
+@media (max-width: 640px) {
+  section { padding: 3.5rem 0; }
+  .container { padding: 0 1.25rem; }
+}

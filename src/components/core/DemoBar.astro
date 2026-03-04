@@ -1,0 +1,109 @@
+---
+interface Props { siteConfig: any; }
+const { siteConfig } = Astro.props;
+const isDemo = !!(siteConfig as any).demo;
+---
+
+{isDemo && (
+  <>
+    <aside class="demo-bar" id="jinpa-demo-bar" aria-label="Jinpa template preview">
+      <div class="demo-bar-inner">
+        <button class="demo-bar-close" id="jinpa-demo-close" aria-label="Dismiss">×</button>
+        <span class="demo-badge">DEMO</span>
+        <p class="demo-bar-msg">Jinpa Template &nbsp;·&nbsp; Fictional artist, placeholder images</p>
+        <a
+          href="https://getjinpa.com/setup/?template=artist-minimal"
+          class="demo-bar-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Use this template →</a>
+      </div>
+    </aside>
+
+    <style is:global>
+      body { padding-bottom: 2.5rem; }
+    </style>
+
+    <script is:inline>
+      (function () {
+        var bar   = document.getElementById('jinpa-demo-bar');
+        var close = document.getElementById('jinpa-demo-close');
+        if (!bar || !close) return;
+        if (sessionStorage.getItem('jinpa-demo-dismissed') === '1') {
+          bar.style.display = 'none';
+          document.body.style.paddingBottom = '';
+          return;
+        }
+        close.addEventListener('click', function () {
+          bar.style.display = 'none';
+          document.body.style.paddingBottom = '';
+          sessionStorage.setItem('jinpa-demo-dismissed', '1');
+        });
+      })();
+    </script>
+  </>
+)}
+
+<style>
+  .demo-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 9999;
+    background: #111827;
+    border-top: 2px solid #c05c38;
+    padding: 0.65rem 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 0.82rem;
+  }
+  .demo-bar-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .demo-badge {
+    flex-shrink: 0;
+    background: #c05c38;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .demo-bar-msg {
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .demo-bar-cta {
+    flex-shrink: 0;
+    margin-left: auto;
+    background: #c05c38;
+    color: #fff;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+  }
+  .demo-bar-cta:hover { background: #9e4a2c; }
+  .demo-bar-close {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 1.2rem;
+    line-height: 1;
+    padding: 0.1rem 0.35rem;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: color 0.15s;
+  }
+  .demo-bar-close:hover { color: rgba(255,255,255,0.9); }
+  @media (max-width: 480px) { .demo-bar-msg { display: none; } }
+</style>
